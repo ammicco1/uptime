@@ -11,7 +11,7 @@ const server = express();
 const port = process.env.UPTIMEPORT || 3000;
 
 const client = redis.createClient({ // connect to redis db
-    url: "redis://172.17.0.2:6379"
+    url: process.env.REDISURL || "redis://172.17.0.2:6379"
 });
 
 var intervals = {}; // store intervals to stop them
@@ -23,6 +23,8 @@ client.on("error", function(err){
 client.connect(); 
 
 server.use(bodyParser.json());
+server.use(express.static(`${__dirname}/public`));
+server.set("view-engine", "ejs");
 
 restart(); // to resume the uptime check after stop
 
@@ -84,14 +86,14 @@ async function startUptime(info){
 
     switch(info.type){
         case "http": intervals[info.hostname] = setUptimeCheckHttp(
-            info.codes ? info.codes : [200], 
+            info.codes ? JSON.parse(info.codes) : [200], 
             info.method ? info.method : "GET", 
             info.hostname, 
             info.path ? info.path : "", 
             info.port ? info.port : 80, 
             info.interval ? info.interval : 5000); break;
         case "https": intervals[info.hostname] = setUptimeCheckHttps(
-            info.codes ? info.codes : [200], 
+            info.codes ? JSON.parse(info.codes) : [200], 
             info.method ? info.method : "GET", 
             info.hostname, 
             info.path ? info.path : "", 

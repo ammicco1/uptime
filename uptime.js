@@ -3,19 +3,20 @@
 const http = require("http");
 const https = require("https");
 const ping = require("ping");
+const dotenv = require("dotenv").config({path: "./.env/.env"});
+
+var postOptions = {
+    port: process.env.UPTIMEPORT || 3000,
+    hostname: "localhost",
+    path: "/getInfo",
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json"
+    }
+};
 
 module.exports = { 
     sendPing: function(host){
-        const postOptions = {
-            port: 3000,
-            hostname: "localhost",
-            path: "/getInfo",
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            }
-        };
-
         let status = {
             type: "ping",
             hostname: host
@@ -38,16 +39,6 @@ module.exports = {
         }, {extra: ["-c", "1"]});
     },
     sendHttp: function(acceptedCode, method, host, path, port){
-        const postOptions = {
-            port: 3000,
-            hostname: "localhost",
-            path: "/getInfo",
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            }
-        };
-
         let status = {
             type: "http",
             hostname: host
@@ -82,16 +73,6 @@ module.exports = {
         }).end();
     },
     sendHttps: function(acceptedCode, method, host, path, port){
-        const postOptions = {
-            port: 3000,
-            hostname: "localhost",
-            path: "/getInfo",
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            }
-        };
-
         let status = {
             type: "https",
             hostname: host
