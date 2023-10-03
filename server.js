@@ -1,7 +1,7 @@
 "use strict";
 
 const express = require("express");
-const bodyParser = require('body-parser')
+const bodyParser = require("body-parser");
 const dotenv = require("dotenv").config({path: "./.env/.env"});
 const redis = require("redis");
 
