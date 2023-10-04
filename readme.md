@@ -80,7 +80,7 @@ You can stop a monitoring with:
     do you want to make it permanent? (y/n): y
 
     ---------------------------------------
-    Stopped
+    Permanently stopped
 ```
 
 if you don't make it permanent at the first restart the monitoring will resume

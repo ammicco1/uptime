@@ -84,7 +84,7 @@ server.post("/stopCheck", async function(req, res){
         await client.del(`${req.body.hostname}:info`);
     }
 
-    res.send("Stopped");
+    res.send(req.body.remove == "true" ? "Permanently stopped" : "Momentarily stopped");
 });
 
 async function populate(list, keys){

@@ -8,7 +8,7 @@ read -r HOSTNAME
 printf "do you want to make it permanent? (y/n): "
 read -r CHOICE
 
-if [ -z "${CHOICE}" ] || [ "${COICHE}" == "y" ]
+if [ -z "${CHOICE}" ] || [ "${CHOICE}" == "y" ]
 then
     PERM="true"
 else
