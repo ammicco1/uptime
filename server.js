@@ -41,6 +41,15 @@ server.get("/", async function(req, res){
     res.send(list);
 });
 
+server.get("/info", async function(req, res){
+    let list = {};
+    let keys = await client.keys("*:info");
+
+    await populate(list, keys);
+
+    res.send(list);
+});
+
 server.post("/getInfo", async function(req, res){
     await client.set(req.body.hostname, req.body.status);
 
@@ -77,7 +86,7 @@ server.post("/stopCheck", async function(req, res){
 
 async function populate(list, keys){
     for(let i = 0; i < keys.length; i++){
-        list[keys[i]] = await client.get(keys[i]);
+        list[keys[i]] = keys[i].includes(":info") ? JSON.parse(await client.get(keys[i])) : await client.get(keys[i]);
     }
 }
 
@@ -109,30 +118,30 @@ async function startUptime(info){
 }
 
 function setUptimeCheckHttp(codes, method, hostname, path, port, interval){
+    uptime.sendHttp(codes, method, hostname, path, port); 
+
     let i = setInterval(function(){
         uptime.sendHttp(codes, method, hostname, path, port);
-
-        console.debug(`sent check to ${hostname}`);
     }, interval);
 
     return i;
 }
 
 function setUptimeCheckHttps(codes, method, hostname, path, port, interval){
+    uptime.sendHttps(codes, method, hostname, path, port); 
+
     let i = setInterval(function(){
         uptime.sendHttps(codes, method, hostname, path, port);
-
-        console.debug(`sent check to ${hostname}`);
     }, interval);
 
     return i;
 }
 
 function setUptimeCheckPing(hostname, interval){
+    uptime.sendPing(hostname); 
+
     let i = setInterval(function(){
         uptime.sendPing(hostname);
-
-        console.debug(`sent check to ${hostname}`);
     }, interval);
 
     return i;
