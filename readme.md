@@ -8,6 +8,12 @@ Start a redis container:
     $ docker run --name uptime-redis -p 6379:6379 -d redis
 ```
 
+Set 2 environment variable: UPTIMEPORT and REDISURL, you can also use .env file. By default they are:
+``` bash
+    UPTIMEPORT=3000
+    REDISURL="redis://172.17.0.2:6379"
+```
+
 Start the node server: 
 ``` bash
     $ node server.js
