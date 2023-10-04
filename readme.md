@@ -15,7 +15,7 @@ Start the node server:
 
 With the example script start to monitor a site: 
 ``` bash
-    $ bash startMonitoring.sh
+    $ ./script/startMonitoring.sh
     Start to monitoring a site
     ---------------------------------------
     hostname: facebook.com
@@ -23,7 +23,7 @@ With the example script start to monitor a site:
     allow codes (write in array form: [200, 301, ...]): [200, 301]
     method: GET
     path (blank for "/"):
-    port: 443
+    port port (blank for 80/443): 
     interval: 10000
 
     ---------------------------------------
@@ -67,11 +67,11 @@ To check a particular site:
 
 You can stop a monitoring with: 
 ``` bash
-    $ ./stopMonitoring.sh
+    $ ./script/stopMonitoring.sh
     Stop to monitoring a site
     ---------------------------------------
     hostname: facebook.com
-    do you want to make it permanent? (y/n):
+    do you want to make it permanent? (y/n): y
 
     ---------------------------------------
     Stopped
