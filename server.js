@@ -33,8 +33,9 @@ server.listen(port, function(){
 });
 
 server.get("/", async function(req, res){
+    let site = req.query.site;
     let list = {};
-    let keys = await client.keys("*[^info]"); 
+    let keys = site ? [site] : await client.keys("*[^info]"); 
 
     await populate(list, keys);
     
@@ -42,8 +43,10 @@ server.get("/", async function(req, res){
 });
 
 server.get("/info", async function(req, res){
+    let site = req.query.site;
+
     let list = {};
-    let keys = await client.keys("*:info");
+    let keys = site ? [`${site}:info`] : await client.keys("*:info");
 
     await populate(list, keys);
 

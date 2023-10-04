@@ -11,7 +11,7 @@ read -r TYPE
 if [ "${TYPE}" == "ping" ]
 then
     printf "interval: "
-    reads -r INTERVAL
+    read -r INTERVAL
 
     printf "\n---------------------------------------\n"
 
@@ -37,6 +37,7 @@ else
     if [ -z "${PORT}" ]
     then
         if [ "${TYPE}" == "http" ]
+        then
             PORT=80
         else
             PORT=443
