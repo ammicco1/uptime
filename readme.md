@@ -2,7 +2,12 @@
 
 Simple node.js tool to monitor if a site is online or not. 
 
-Start a redis container: 
+There are 3 possible types of check: 
+ - ping check, that sends an ICMP echo request packets
+ - http, that sends an http request 
+ - https, that sends an https request 
+
+To start the service first start a redis container: 
 ``` bash
     $ docker pull redis:latest
     $ docker run --name uptime-redis -p 6379:6379 -d redis
@@ -25,7 +30,7 @@ With the example script start to monitor a site:
     Start to monitoring a site
     ---------------------------------------
     hostname: facebook.com
-    type: https
+    type: https 
     allow codes (write in array form: [200, 301, ...]): [200, 301]
     method: GET
     path (blank for "/"):
